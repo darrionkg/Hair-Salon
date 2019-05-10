@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <meta charset='utf-8'>
@@ -10,22 +10,15 @@
   <div class="container">
     <div class="jumbotron">
       <h1>To Do List</h1>
-      <em>Pick a category to see to do items</em>
+      <em>You can add a new category here.</em>
     </div>
-    <ul>
-    @if (Model.Count == 0)
-    {
-      <p>No categories have been added yet!</p>
-    }
-    @if(Model.Count != 0)
-    {
-      @foreach (var category in Model)
-      {
-        <a href="/categories/@category.GetId()" class="btn btn-dark">@category.GetName()</a><br>
-      }
-    }
-    </ul>
+    <form action="/categories" method="post">
+      <input id="categoryName" name="categoryName" type="text">
+      <button type="submit" class="btn btn-dark">Add new category</button>
+    </form>
+    <br>
+    <a href="/categories" class="btn btn-dark">Back to categories</a>
     <a href="/" class="btn btn-dark">Back to homepage</a>
   </div>
 </body>
-</html>
+</html> -->
