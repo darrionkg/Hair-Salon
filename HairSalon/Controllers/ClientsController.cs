@@ -1,12 +1,11 @@
-using System.Collections.Generic;
-using System;
 using Microsoft.AspNetCore.Mvc;
 using HairSalon.Models;
+using System.Collections.Generic;
 
 namespace HairSalon.Controllers
 {
 
-    public class StylistsController : Controller
+    public class ClientsController : Controller
     {
 
 

@@ -1,14 +1,32 @@
+using System.Collections.Generic;
+using System;
 using Microsoft.AspNetCore.Mvc;
 using HairSalon.Models;
-using System.Collections.Generic;
 
 namespace HairSalon.Controllers
 {
 
-    public class ClientsController : Controller
+    public class StylistsController : Controller
     {
+      [HttpGet("/stylists")]
+      public ActionResult Index()
+      {
+        return View(Stylist.GetListOfStylists());
+      }
 
+      [HttpPost("/stylists")]
+      public ActionResult Create(string stylistName, string stylistDescription)
+      {
+        Stylist newStylist = new Stylist(stylistName, stylistDescription);
 
+        return RedirectToAction("Index");
+      }
+
+      [HttpGet("/stylists/new")]
+      public ActionResult New()
+      {
+        return View();
+      }
     }
 
 }
