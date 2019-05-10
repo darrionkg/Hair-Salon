@@ -13,12 +13,17 @@ namespace HairSalon.Models
 
     private static List<Stylist> _listOfStylists = new List<Stylist> {};
 
+    public Stylist()
+    {
+
+    }
+
     public Stylist(string name, string description)
     {
       _id = _listOfStylists.Count;
       _name = name;
       _description = description;
-      _listOfStylists.Add(this);
+      //_listOfStylists.Add(this);
     }
 
     public string GetName()
@@ -53,7 +58,26 @@ namespace HairSalon.Models
 
     public static List<Stylist> GetListOfStylists()
     {
-      return _listOfStylists;
+      List<Stylist> allStylists = new List<Stylist> {};
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM stylists;";
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+      while(rdr.Read())
+      {
+        Stylist newStylist = new Stylist();
+        newStylist.SetId(rdr.GetInt32(0));
+        newStylist.SetName(rdr.GetString(1));
+        newStylist.SetDescription(rdr.GetString(2));
+        allStylists.Add(newStylist);
+      }
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return allStylists;
     }
 
     public void Save()
@@ -61,7 +85,7 @@ namespace HairSalon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO `stylists` (`name`, `description`, `hiredate`) VALUES (''"+_name+"'', ''"+_description+"'', CURRENT_TIMESTAMP);";
+      cmd.CommandText = @"INSERT INTO `stylists` (`name`, `description`, `hiredate`) VALUES ('"+_name+"', '"+_description+"', CURRENT_TIMESTAMP);";
       cmd.ExecuteNonQuery();
       conn.Close();
       if (conn != null)

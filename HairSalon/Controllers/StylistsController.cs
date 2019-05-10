@@ -11,14 +11,16 @@ namespace HairSalon.Controllers
       [HttpGet("/stylists")]
       public ActionResult Index()
       {
-        return View(Stylist.GetListOfStylists());
+        List<Stylist> allStylists = Stylist.GetListOfStylists();
+        //problem with adding multiple instances
+        return View(allStylists);
       }
 
       [HttpPost("/stylists")]
       public ActionResult Create(string stylistName, string stylistDescription)
       {
         Stylist newStylist = new Stylist(stylistName, stylistDescription);
-
+        newStylist.Save();
         return RedirectToAction("Index");
       }
 
