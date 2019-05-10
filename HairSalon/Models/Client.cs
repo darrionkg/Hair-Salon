@@ -15,10 +15,30 @@ namespace HairSalon.Models
 
     }
 
-    public Client(string name, string stylistName)
+    public Client(string name, int stylistId)
     {
       _name = name;
-      _stylistName = stylistName;
+      _stylistId = stylistId;
+    }
+
+    public string GetName()
+    {
+      return _name;
+    }
+
+    public void SetName(string name)
+    {
+      _name = name;
+    }
+
+    public int GetId()
+    {
+      return _id;
+    }
+
+    public void SetId(int id)
+    {
+      _id = id;
     }
 
   }

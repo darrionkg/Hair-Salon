@@ -10,7 +10,7 @@ namespace HairSalon.Models
     private string _name;
     private string _description;
     private DateTime _timestamp;
-    //private List<Client> _listOfClients;
+    private List<Client> _listOfClients;
 
 
     private static List<Stylist> _listOfStylists = new List<Stylist> {};
@@ -23,6 +23,14 @@ namespace HairSalon.Models
     public Stylist(string name, string description)
     {
       _id = _listOfStylists.Count;
+      _name = name;
+      _description = description;
+      _listOfStylists.Add(this);
+    }
+
+    public Stylist(string name, string description, int id, DateTime timestamp)
+    {
+      _id = id;
       _name = name;
       _description = description;
       _listOfStylists.Add(this);
@@ -111,7 +119,38 @@ namespace HairSalon.Models
         conn.Dispose();
       }
     }
+
+  public static Stylist Find(int id)
+  {
+    MySqlConnection conn = DB.Connection();
+    conn.Open();
+    var cmd = conn.CreateCommand() as MySqlCommand;
+    cmd.CommandText = @"SELECT * FROM `stylists` WHERE id = @thisId;";
+    MySqlParameter thisId = new MySqlParameter();
+    thisId.ParameterName = "@thisId";
+    thisId.Value = id;
+    cmd.Parameters.Add(thisId);
+    var rdr = cmd.ExecuteReader() as MySqlDataReader;
+    rdr.Read();
+    int stylistId = rdr.GetInt32(0);
+    string stylistName = rdr.GetString(1);
+    string stylistDescription = rdr.GetString(2);
+    DateTime timestamp = rdr.GetDateTime(3);
+    Stylist foundStylist = new Stylist(stylistName, stylistDescription, stylistId, timestamp);
+    conn.Close();
+    if (conn != null)
+    {
+      conn.Dispose();
+    }
+    return foundStylist;
   }
+
+    public List<Client> GetListOfClients()
+    {
+      return _listOfClients;
+    }
+  }
+
 
 
 
