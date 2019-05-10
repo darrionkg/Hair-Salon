@@ -20,7 +20,7 @@
     {
       @foreach (var client in @Model["clients"])
       {
-        <li><a href="/stylists/@Model["stylist"].GetId()/client/@client.GetId()" class="btn btn-dark">@client.GetDescription()</a></li>
+        <li>@Model.GetName()</li>
       }
     }
     </ol>

@@ -42,15 +42,15 @@ namespace HairSalon.Controllers
       //   return RedirectToAction("/stylists/stylistId");
       // }
 
-      // LIST OF CLIENTS
-      [HttpGet("/stylists/{id}")]
-      public ActionResult Show(int id)
-      {
-        Stylist foundStylist = Stylist.Find(id);
-        List<Client> clientList = foundStylist.GetListOfClients();
-        //problem with adding multiple instances
-        return View(clientList);
-      }
-    }
+    //   // LIST OF CLIENTS
+    //   [HttpGet("/stylists/{id}")]
+    //   public ActionResult Show(int id)
+    //   {
+    //     Stylist foundStylist = Stylist.Find(id);
+    //     //move GetListOfClients to Client Class
+    //     List<Client> clientList = foundStylist.GetListOfClients();
+    //     return View(clientList);
+    //   }
+    // }
 
 }
