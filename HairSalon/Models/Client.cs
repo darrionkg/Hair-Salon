@@ -4,10 +4,15 @@ using System;
 
 namespace HairSalon.Models
 {
-  // public class 
-  // {
-  //
-  // }
+  public class Client
+  {
+    private string _name;
+
+    public Client()
+    {
+
+    }
+  }
 
 
 }

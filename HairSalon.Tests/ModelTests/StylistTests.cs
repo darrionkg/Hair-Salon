@@ -6,15 +6,38 @@ using System;
 namespace HairSalon.Tests
 {
     [TestClass]
-    public class CategoryTest : IDisposable
+    public class StylistTest : IDisposable
     {
 
         public void Dispose()
         {
-            Category.ClearAll();
+            Stylist.ClearAll();
         }
 
-        
+        [TestMethod]
+        public void Constructor_CreatesConstructorWithProperties_Object()
+        {
+          Stylist testStylist = new Stylist("name", "stylist description");
+          Assert.AreEqual(typeof(Stylist), testStylist.GetType());
+        }
+
+        [TestMethod]
+        public void Constructor_AssignsIds_Int()
+        {
+          Stylist testStylist = new Stylist("name", "stylist description");
+          Stylist testStylist2 = new Stylist("name", "stylist description");
+          Assert.AreEqual(testStylist2.GetId(), 1);
+        }
+
+        [TestMethod]
+        public void Constructor_AssignNameProperty_String()
+        {
+          Stylist testStylist = new Stylist("name", "stylist description");
+          Stylist testStylist2 = new Stylist("name", "stylist description");
+          Assert.AreEqual(testStylist2.GetName(), "name");
+        }
+
+
 
     }
 }

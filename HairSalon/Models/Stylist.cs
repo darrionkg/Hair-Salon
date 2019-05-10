@@ -9,7 +9,9 @@ namespace HairSalon.Models
     private int _id;
     private string _name;
     private string _description;
+    private DateTime _timestamp;
     //private List<Client> _listOfClients;
+
 
     private static List<Stylist> _listOfStylists = new List<Stylist> {};
 
@@ -23,7 +25,12 @@ namespace HairSalon.Models
       _id = _listOfStylists.Count;
       _name = name;
       _description = description;
-      //_listOfStylists.Add(this);
+      _listOfStylists.Add(this);
+    }
+
+    public static void ClearAll()
+    {
+      _listOfStylists.Clear();
     }
 
     public string GetName()
@@ -56,6 +63,16 @@ namespace HairSalon.Models
       _description = description;
     }
 
+    public DateTime GetTimestamp()
+    {
+      return _timestamp;
+    }
+
+    public void SetTimestamp(DateTime timestamp)
+    {
+      _timestamp = timestamp;
+    }
+
     public static List<Stylist> GetListOfStylists()
     {
       List<Stylist> allStylists = new List<Stylist> {};
@@ -70,6 +87,7 @@ namespace HairSalon.Models
         newStylist.SetId(rdr.GetInt32(0));
         newStylist.SetName(rdr.GetString(1));
         newStylist.SetDescription(rdr.GetString(2));
+        newStylist.SetTimestamp(rdr.GetDateTime(3));
         allStylists.Add(newStylist);
       }
       conn.Close();
