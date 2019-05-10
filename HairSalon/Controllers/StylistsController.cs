@@ -29,6 +29,30 @@ namespace HairSalon.Controllers
       {
         return View();
       }
+
+      [HttpGet("/stylists/{stylistId}/clients/new")]
+      public ActionResult New()
+      {
+        return View();
+      }
+
+      [HttpPost("/stylist/{stylistId}/clients/new")]
+      public ActionResult Create(string clientName, int stylistId)
+      {
+        return RedirectToAction("/stylists/stylistId")
+      }
+
+
+
+      // LIST OF CLIENTS
+      [HttpGet("/stylists/{id}")]
+      public ActionResult Show(int id)
+      {
+        Stylist foundStylist = Stylist.Find()
+        List<Stylist> clientList = stylist.GetListOfClients());
+        //problem with adding multiple instances
+        return View(clientList);
+      }
     }
 
 }
