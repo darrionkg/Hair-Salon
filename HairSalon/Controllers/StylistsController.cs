@@ -29,28 +29,6 @@ namespace HairSalon.Controllers
       {
         return View();
       }
-
-      // [HttpGet("/stylists/{stylistId}/clients/new")]
-      // public ActionResult New()
-      // {
-      //   return View();
-      // }
-      //
-      // [HttpPost("/stylist/{stylistId}/clients/new")]
-      // public ActionResult Create(string clientName, int stylistId)
-      // {
-      //   return RedirectToAction("/stylists/stylistId");
-      // }
-
-    //   // LIST OF CLIENTS
-    //   [HttpGet("/stylists/{id}")]
-    //   public ActionResult Show(int id)
-    //   {
-    //     Stylist foundStylist = Stylist.Find(id);
-    //     //move GetListOfClients to Client Class
-    //     List<Client> clientList = foundStylist.GetListOfClients();
-    //     return View(clientList);
-    //   }
-    // }
+  }
 
 }

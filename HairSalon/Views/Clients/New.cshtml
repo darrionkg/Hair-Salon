@@ -2,20 +2,19 @@
 <html>
 <head>
   <meta charset='utf-8'>
-  <title>To Do List</title>
+  <title>Add Client</title>
   <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
 </head>
 <body>
   <div class="container">
     <div class="jumbotron">
-      <h1></h1>
-      <em>You can add a new item to the <strong>@Model.GetName()</strong> category here.</em>
+      <h1>Add a Client</h1>
     </div>
-    <form action='/categories/@Model.GetId()/items' method='post'>
+    <form action='/stylists/@Model.GetId()/clients' method='post'>
       <!-- <input id='categoryId' name='categoryId' type='hidden' value='@Model.GetId()'> -->
-      <label for='clientName'>To do item:</label>
+      <label for='clientName'>Client Name:</label>
       <input id='clientName' name='clientName' type='text'>
-      <button type='submit' class="btn btn-dark">Add item</button>
+      <button type='submit' class="btn btn-dark">Add Client</button>
     </form>
   </div>
 </body>
