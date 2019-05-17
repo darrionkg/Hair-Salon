@@ -8,14 +8,14 @@ namespace HairSalon.Tests
   [TestClass]
   public class StylistTest : IDisposable
   {
-    public StylistTest()
-    {
-      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=darrion_gering_test;";
-    }
-
     public void Dispose()
     {
       Stylist.ClearAll();
+    }
+
+    public StylistTest()
+    {
+      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=darrion_gering_test;";
     }
 
     [TestMethod]
@@ -42,11 +42,21 @@ namespace HairSalon.Tests
     }
 
     [TestMethod]
+    public void GetName_ReturnsName_String()
+    {
+      string name = "test stylist";
+      Stylist newStylist = new Stylist(name, "description");
+      string result = newStylist.GetName();
+      Assert.AreEqual(name, result);
+    }
+
+    [TestMethod]
     public void GetAll_ReturnsEmptyList_List()
     {
       List<Stylist> test = new List<Stylist> {};
       CollectionAssert.AreEqual(test, Stylist.GetListOfStylists());
     }
+
 
     [TestMethod]
     public void GetListOfStylists_ReturnsStylists_List()
@@ -55,10 +65,12 @@ namespace HairSalon.Tests
       stylist1.Save();
       Stylist stylist2 = new Stylist("Dave", "Im good");
       stylist2.Save();
-      List<Stylist> testStylists = new List<Stylist> {};
-      testStylists.Add(stylist1);
-      testStylists.Add(stylist2);
+      List<Stylist> testStylists = new List<Stylist> {stylist1, stylist2};
       List<Stylist> result = Stylist.GetListOfStylists();
+      Console.WriteLine(testStylists[0].GetName());
+      Console.WriteLine(testStylists[1].GetName());
+      Console.WriteLine(result[0].GetName());
+      Console.WriteLine(result[1].GetName());
       CollectionAssert.AreEqual(testStylists, result);
     }
   }

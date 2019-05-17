@@ -39,7 +39,16 @@ namespace HairSalon.Models
 
     public static void ClearAll()
     {
-      _listOfStylists.Clear();
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM stylists;";
+      cmd.ExecuteNonQuery();
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
     }
 
     public string GetName()
@@ -195,7 +204,7 @@ namespace HairSalon.Models
         bool idEquality = this.GetId().Equals(newStylist.GetId());
         bool descriptionEquality = this.GetDescription().Equals(newStylist.GetDescription());
         bool timestampEquality = this.GetTimestamp().Equals(newStylist.GetTimestamp());
-        if(nameEquality == true && idEquality == true && descriptionEquality == true && timestampEquality == true)
+        if(nameEquality == true && idEquality == true && descriptionEquality == true)
         {
           return nameEquality;
         }
