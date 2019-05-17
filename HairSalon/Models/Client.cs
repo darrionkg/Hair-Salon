@@ -132,15 +132,14 @@ namespace HairSalon.Models
       }
     }
 
-    // Assigns a different stylist to a client
-    public void Edit(string columnToEdit, string stringToEdit)
+    public void EditName(string columnToEdit, string newName)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE clients SET '"+columnToEdit+"' = '"+stringToEdit+"' WHERE id = '"+_id+"';";
+      cmd.CommandText = @"UPDATE clients SET '"+columnToEdit+"' = '"+newName+"' WHERE id = '"+_id+"';";
       cmd.ExecuteNonQuery();
-      _stylistId = newStylistId;
+      _name = newName;
       conn.Close();
       if (conn != null)
       {
@@ -148,13 +147,12 @@ namespace HairSalon.Models
       }
     }
 
-    // Overloaded function to edit integer
-    public void Edit(string columnToEdit, int intToEdit)
+    public void EditStylistId(string columnToEdit, int newStylistId)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE clients SET '"+columnToEdit+"' = '"+intToEdit+"' WHERE id = '"+_id+"';";
+      cmd.CommandText = @"UPDATE clients SET '"+columnToEdit+"' = '"+newStylistId+"' WHERE id = '"+_id+"';";
       cmd.ExecuteNonQuery();
       _stylistId = newStylistId;
       conn.Close();
