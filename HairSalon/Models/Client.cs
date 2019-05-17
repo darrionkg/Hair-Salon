@@ -81,12 +81,77 @@ namespace HairSalon.Models
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"INSERT INTO `clients` (`name`, `stylist_id`) VALUES ('"+_name+"', '"+_stylistId+"');";
       cmd.ExecuteNonQuery();
+      _id = (int) cmd.LastInsertedId;
       conn.Close();
       if (conn != null)
       {
         conn.Dispose();
       }
     }
+
+    public static Client Find(int id)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM `clients` WHERE id = @thisId;";
+      MySqlParameter thisId = new MySqlParameter();
+      thisId.ParameterName = "@thisId";
+      thisId.Value = id;
+      cmd.Parameters.Add(thisId);
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+      Client foundClient = new Client();
+      while(rdr.Read())
+      {
+        int clientId = rdr.GetInt32(0);
+        string clientName = rdr.GetString(1);
+        int stylistId = rdr.GetInt32(2);
+        foundClient.SetId(clientId);
+        foundClient.SetName(clientName);
+        foundClient.SetStylistId(stylistId);
+      }
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return foundClient;
+    }
+
+    public static void ClearAll()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM clients;";
+      cmd.ExecuteNonQuery();
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+
+    public override bool Equals(System.Object otherClient)
+    {
+      if (!(otherClient is Client))
+      {
+        return false;
+      }
+      else
+      {
+        Client newClient = (Client) otherClient;
+        bool nameEquality = this.GetName().Equals(newClient.GetName());
+        bool idEquality = this.GetId().Equals(newClient.GetId());
+        bool stylistIdEquality = this.GetStylistId().Equals(newClient.GetStylistId());
+        if(nameEquality == true && idEquality == true && stylistIdEquality == true)
+        {
+          return true;
+        }
+      return false;
+      }
+    }
+
   }
 
 

@@ -10,31 +10,25 @@ namespace HairSalon.Models
     private string _name;
     private string _description;
     private DateTime _timestamp;
-    private List<Client> _listOfClients = new List<Client> {};
-
-
-    private static List<Stylist> _listOfStylists = new List<Stylist> {};
 
     public Stylist()
     {
 
     }
 
-    public Stylist(string name, string description)
+    public Stylist(string name, string description, int id = 0)
     {
-      _id = _listOfStylists.Count;
       _name = name;
       _description = description;
-      _listOfStylists.Add(this);
+      _id = id;
     }
 
-    public Stylist(string name, string description, int id, DateTime timestamp)
+    public Stylist(string name, string description, DateTime timestamp, int id = 0)
     {
-      _id = id;
       _name = name;
       _description = description;
       _timestamp = timestamp;
-      _listOfStylists.Add(this);
+      _id = 0;
     }
 
     public static void ClearAll()
@@ -123,6 +117,7 @@ namespace HairSalon.Models
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"INSERT INTO `stylists` (`name`, `description`, `hire_date`) VALUES ('"+_name+"', '"+_description+"', CURRENT_TIMESTAMP);";
       cmd.ExecuteNonQuery();
+      _id = (int) cmd.LastInsertedId;
       conn.Close();
       if (conn != null)
       {
@@ -158,7 +153,6 @@ namespace HairSalon.Models
       {
         conn.Dispose();
       }
-      Stylist test = new Stylist();
       return foundStylist;
     }
 
@@ -206,7 +200,7 @@ namespace HairSalon.Models
         bool timestampEquality = this.GetTimestamp().Equals(newStylist.GetTimestamp());
         if(nameEquality == true && idEquality == true && descriptionEquality == true)
         {
-          return nameEquality;
+          return true;
         }
       return false;
       }
