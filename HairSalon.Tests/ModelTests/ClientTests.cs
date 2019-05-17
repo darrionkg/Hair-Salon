@@ -122,9 +122,6 @@ namespace HairSalon.Tests
     [TestMethod]
     public void Edit_EditsAClientsName()
     {
-      // Stylist stylistToTest = new Stylist("test", "description");
-      // stylistToTest.Save();
-
       Client testClient = new Client("test client", 1);
       testClient.Save();
       Console.WriteLine(testClient.GetId());
@@ -133,14 +130,15 @@ namespace HairSalon.Tests
       Assert.AreEqual(testClient.GetName(), "new name");
     }
 
-    // [TestMethod]
-    // public void Edit_EditsAClientsStylistId()
-    // {
-    //   Client testClient = new Client("test stylist", 1);
-    //
-    //   testClient.EditStylistId("stylist_id", 2);
-    //
-    //   Assert.AreEqual(testClient.GetStylistId(), 2);
-    // }
+    [TestMethod]
+    public void Edit_EditsAClientsStylistId()
+    {
+      // Client IDs aren't working correctly
+      Client testClient = new Client("test stylist", 1);
+
+      testClient.EditStylistId("stylist_id", 2);
+
+      Assert.AreEqual(testClient.GetStylistId(), 2);
+    }
   }
 }
