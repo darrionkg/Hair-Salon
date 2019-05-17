@@ -26,14 +26,6 @@ namespace HairSalon.Tests
     }
 
     [TestMethod]
-    public void Constructor_AssignsIds_Int()
-    {
-      Stylist testStylist = new Stylist("name", "stylist description");
-      Stylist testStylist2 = new Stylist("name", "stylist description");
-      Assert.AreEqual(testStylist2.GetId(), 1);
-    }
-
-    [TestMethod]
     public void Constructor_AssignNameProperty_String()
     {
       Stylist testStylist = new Stylist("name", "stylist description");
@@ -59,7 +51,7 @@ namespace HairSalon.Tests
 
 
     [TestMethod]
-    public void GetListOfStylists_ReturnsStylists_List()
+    public void GetListOfStylists_ReturnsStylists_String()
     {
       Stylist stylist1 = new Stylist("Stylez", "The best at everything");
       stylist1.Save();
@@ -67,11 +59,42 @@ namespace HairSalon.Tests
       stylist2.Save();
       List<Stylist> testStylists = new List<Stylist> {stylist1, stylist2};
       List<Stylist> result = Stylist.GetListOfStylists();
-      Console.WriteLine(testStylists[0].GetName());
-      Console.WriteLine(testStylists[1].GetName());
-      Console.WriteLine(result[0].GetName());
-      Console.WriteLine(result[1].GetName());
-      CollectionAssert.AreEqual(testStylists, result);
+      Assert.AreEqual(testStylists[0].GetName(), result[0].GetName());
+    }
+
+    [TestMethod]
+    public void Save_SavesToDatabase_StylistList()
+    {
+      Stylist testStylist = new Stylist("test stylist", "test description");
+      testStylist.Save();
+      List<Stylist> result = Stylist.GetListOfStylists();
+      List<Stylist> testList = new List<Stylist>{testStylist};
+
+      CollectionAssert.AreEqual(testList, result);
+    }
+
+    [TestMethod]
+    public void Save_AssignsIdToObject_Id()
+    {
+      Stylist testStylist = new Stylist("test stylist", "test description");
+
+      testStylist.Save();
+      Stylist savedStylist = Stylist.GetListOfStylists()[0];
+
+      int result = savedStylist.GetId();
+      int testId = testStylist.GetId();
+
+      Assert.AreEqual(testId, result);
+    }
+    [TestMethod]
+    public void Find_ReturnsCorrectStylistFromDatabase_Stylist()
+    {
+      Stylist testStylist = new Stylist("test stylist", "test description");
+      testStylist.Save();
+
+      Stylist foundStylist = Stylist.Find(testStylist.GetId());
+      Console.WriteLine(foundStylist.GetId());
+      Assert.AreEqual(testStylist.GetId(), foundStylist.GetId());
     }
   }
 }
