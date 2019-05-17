@@ -156,7 +156,7 @@ namespace HairSalon.Models
       return foundStylist;
     }
 
-    public void Edit(string newName)
+    public void EditName(string newName)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();

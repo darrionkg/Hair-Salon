@@ -46,14 +46,14 @@ namespace HairSalon.Controllers
         int intClientId = int.Parse(clientId);
         Client foundClient = Client.Find(intClientId);
         foundClient.Delete();
-        return Redirect("~/stylists");
+        return Redirect("~/clients");
       }
 
       [HttpPost("/clients/deleteAll")]
       public ActionResult DeleteAll()
       {
         Client.DeleteAll();
-        return Redirect("~/stylists");
+        return Redirect("~/clients");
       }
 
       [HttpGet("/clients")]
@@ -61,6 +61,31 @@ namespace HairSalon.Controllers
       {
         return View();
       }
+
+      [HttpGet("/clients/{id}")]
+      public ActionResult Show(int id)
+      {
+        Client foundClient = Client.Find(id);
+        return View(foundClient);
+      }
+
+      [HttpPost("/clients/updateName")]
+      public ActionResult Edit(int clientId, string newName)
+      {
+        Client foundClient = Client.Find(clientId);
+        Console.WriteLine(foundClient.GetName());
+        foundClient.EditName("name", newName);
+        return Redirect("/clients");
+      }
+
+      // [HttpPost("/clients/updateStylistId")]
+      // public ActionResult UpdateStylistId(int clientId, string newStylistId)
+      // {
+      //   int intStylistId = int.Parse(newStylistId);
+      //   client.EditStylistId("stylist_id", intStylistId);
+      //   return Redirect("/clients");
+      // }
+
     }
 
 }

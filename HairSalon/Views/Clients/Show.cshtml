@@ -1,21 +1,32 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset='utf-8'>
-  <title>To Do List</title>
+  <title>Client - @Model.GetName()</title>
   <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
 </head>
 <body>
   <div class="container">
     <div class="jumbotron">
-      <h1>To Do List</h1>
-      <em>You can find more details about the to do item here.</em>
+      <h1>--Client--</h1>
     </div>
-    <h3>@Model["item"].GetDescription()</h3>
-    <h3>Category: @Model["category"].GetName()</h3>
-    <h3>Due Date: @Model["item"].GetDueDate()</h3>
-    <a href="/categories/@Model["category"].GetId()/items/new" class="btn btn-dark">Add another item</a>
-    <a href="/categories" class="btn btn-dark">View all categories</a>
+    <form action="/clients/updateName" method="post">
+      <h3>Client Name: @Model.GetName()</h3>
+      <label for="newName">Update Name:</label>
+      <input type="text" name="newName">
+
+      <input type="hidden" name="clientId" value="@Model.GetId()">
+      <button type="submit" name="button">Update</button>
+    </form>
+    <form action="/clients/updateStylistId" method="post">
+      <h3>Client's Stylist Id: @Model.GetStylistId()</h3>
+      <label for="newStylistId">Update Stylist Id:</label>
+      <input type="text" name="newStylistId">
+      <input type="hidden" name="clientId" value="@Model.GetId()">
+      <button type="submit" name="button">Update</button>
+    </form>
+    <a href="/clients" class="btn btn-dark">View all Clients</a>
+    <a href="/stylists" class="btn btn-dark">View all Stylists</a>
   </div>
 </body>
-</html> -->
+</html>
