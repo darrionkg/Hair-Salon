@@ -1,0 +1,29 @@
+<!-- @using HairSalon.Models;
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>To Do List</title>
+  <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Remove Stylists</h1>
+      <em>Be careful when using this page</em>
+    </div>
+    <form action="/stylists/deleteStylist" method="post">
+      <select name="stylistId">
+      @foreach(Stylist stylist in Stylist.GetListOfStylists())
+      {
+        <option value="@stylist.GetId()">@stylist.GetName()</option>
+
+      }
+      </select>
+      <button type="submit" name="button">Delete</button>
+    </form>
+
+    <form action="/stylists/deleteAll" method="post">
+      <button type="submit" name="button">Delete All Stylists</button>
+    </form> -->

@@ -58,6 +58,12 @@ namespace HairSalon.Controllers
         Stylist.DeleteAll();
         return RedirectToAction("Index");
       }
+
+      // [HttpPost("/stylists/edit")]
+      // public ActionResult Edit()
+      // {
+      //   return View();
+      // }
   }
 
 }

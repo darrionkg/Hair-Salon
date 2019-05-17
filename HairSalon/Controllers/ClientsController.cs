@@ -55,16 +55,12 @@ namespace HairSalon.Controllers
         Client.DeleteAll();
         return Redirect("~/stylists");
       }
-    //   // LIST OF CLIENTS
-    //   [HttpGet("/stylists/{id}")]
-    //   public ActionResult Show(int id)
-    //   {
-    //     Stylist foundStylist = Stylist.Find(id);
-    //     //move GetListOfClients to Client Class
-    //     List<Client> clientList = foundStylist.GetListOfClients();
-    //     return View(clientList);
-    //   }
 
+      [HttpGet("/clients")]
+      public ActionResult ViewAll()
+      {
+        return View();
+      }
     }
 
 }

@@ -1,0 +1,34 @@
+@using HairSalon.Models;
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>Client List</title>
+  <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Client List</h1>
+    </div>
+    <ol>
+    @if (Client.GetListOfClients(@Model).Count == 0)
+    {
+      <p>No clients have been added yet!</p>
+    }
+    @if(Client.GetListOfClients(@Model).Count != 0)
+    {
+      @foreach (var client in Client.GetAll()
+      {
+        <li>@client.GetName()</li>
+      }
+    }
+    </ol>
+    <a href="/stylists/@Model.GetId()/clients/new" class="btn btn-dark">Add a new client"</a><br><br>
+    <a href="/clients/delete">Remove clients</a>
+    <a href="/stylists" class="btn btn-dark">Return to stylists list</a>
+    <a href="/" class="btn btn-dark">Return to homepage</a>
+  </div>
+</body>
+</html>
