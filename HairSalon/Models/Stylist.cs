@@ -112,7 +112,7 @@ namespace HairSalon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO `stylists` (`name`, `description`, `hiredate`) VALUES ('"+_name+"', '"+_description+"', CURRENT_TIMESTAMP);";
+      cmd.CommandText = @"INSERT INTO `stylists` (`name`, `description`, `hire_date`) VALUES ('"+_name+"', '"+_description+"', CURRENT_TIMESTAMP);";
       cmd.ExecuteNonQuery();
       conn.Close();
       if (conn != null)
@@ -132,10 +132,6 @@ namespace HairSalon.Models
       thisId.Value = id;
       cmd.Parameters.Add(thisId);
       var rdr = cmd.ExecuteReader() as MySqlDataReader;
-      // int stylistId;
-      // string stylistName;
-      // string stylistDescription;
-      // DateTime timestamp;
       Stylist foundStylist = new Stylist();
       while(rdr.Read())
       {
@@ -157,6 +153,35 @@ namespace HairSalon.Models
       return foundStylist;
     }
 
+    public void Edit(string newDescription)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"UPDATE stylists SET description = '"+newDescription+"' WHERE id = '"+_id+"';";
+      cmd.ExecuteNonQuery();
+      _description = newDescription;
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+
+    public void Delete()
+    {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"DELETE FROM stylists WHERE id = '"+_id+"';";
+        cmd.ExecuteNonQuery();
+        if (conn != null)
+        {
+          conn.Close();
+      }
+    }
+
+
     public override bool Equals(System.Object otherStylist)
     {
       if (!(otherStylist is Stylist))
@@ -177,29 +202,5 @@ namespace HairSalon.Models
       return false;
       }
     }
-
-    // public List<Client> GetListOfClients()
-    // {
-    //   List<Client> allClients = new List<Client> {};
-    //   MySqlConnection conn = DB.Connection();
-    //   conn.Open();
-    //   MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-    //   cmd.CommandText = @"SELECT * FROM clients WHERE stylistId = '_id';";
-    //   MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-    //   while(rdr.Read())
-    //   {
-    //     Client newClient = new Client();
-    //     newClient.SetId(rdr.GetInt32(0));
-    //     newClient.SetName(rdr.GetString(1));
-    //     newClient.SetStylistId(rdr.GetInt32(2));
-    //     allClients.Add(newClient);
-    //   }
-    //   conn.Close();
-    //   if (conn != null)
-    //   {
-    //     conn.Dispose();
-    //   }
-    //   return allClients;
-    // }
   }
 }

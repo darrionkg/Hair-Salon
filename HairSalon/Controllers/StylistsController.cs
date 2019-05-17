@@ -8,6 +8,12 @@ namespace HairSalon.Controllers
 
     public class StylistsController : Controller
     {
+      [HttpGet("/owner")]
+      public ActionResult OwnerSettings()
+      {
+        return View();
+      }
+
       [HttpGet("/stylists")]
       public ActionResult Index()
       {
@@ -29,6 +35,8 @@ namespace HairSalon.Controllers
       {
         return View();
       }
+
+
   }
 
 }
