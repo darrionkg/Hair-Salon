@@ -74,6 +74,31 @@ namespace HairSalon.Models
       }
       return allClients;
     }
+
+    public static List<Client> GetAll()
+    {
+      List<Client> allClients = new List<Client> {};
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM clients;";
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+      while(rdr.Read())
+      {
+        Client newClient = new Client();
+        newClient.SetId(rdr.GetInt32(0));
+        newClient.SetName(rdr.GetString(1));
+        newClient.SetStylistId(rdr.GetInt32(2));
+        allClients.Add(newClient);
+      }
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return allClients;
+    }
+    
     public void Save()
     {
       MySqlConnection conn = DB.Connection();
@@ -175,6 +200,18 @@ namespace HairSalon.Models
       }
     }
 
+    public static void DeleteAll()
+    {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"DELETE * FROM stylists;";
+        cmd.ExecuteNonQuery();
+        if (conn != null)
+        {
+          conn.Close();
+        }
+    }
 
     public override bool Equals(System.Object otherClient)
     {

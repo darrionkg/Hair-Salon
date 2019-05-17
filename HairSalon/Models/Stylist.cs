@@ -184,7 +184,7 @@ namespace HairSalon.Models
       }
     }
 
-    public void DeleteAll()
+    public static void DeleteAll()
     {
         MySqlConnection conn = DB.Connection();
         conn.Open();
@@ -194,7 +194,7 @@ namespace HairSalon.Models
         if (conn != null)
         {
           conn.Close();
-      }
+        }
     }
 
 

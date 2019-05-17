@@ -10,22 +10,22 @@
 <body>
   <div class="container">
     <div class="jumbotron">
-      <h1>Remove Stylists</h1>
+      <h1>Remove Clients</h1>
       <em>Be careful when using this page</em>
     </div>
-    <form action="/stylists/deleteStylist" method="post">
-      <select name="stylistId">
-      @foreach(Stylist stylist in Stylist.GetListOfStylists())
+    <form action="/clients/deleteClient" method="post">
+      <select name="clientId">
+      @foreach(Client client in Client.GetAll())
       {
-        <option value="@stylist.GetId()">@stylist.GetName()</option>
+        <option value="@client.GetId()">@client.GetName()</option>
 
       }
       </select>
       <button type="submit" name="button">Delete</button>
     </form>
 
-    <form action="/stylists/deleteAll" method="post">
-      <button type="submit" name="button">Delete All Stylists</button>
+    <form action="/clients/deleteAll" method="post">
+      <button type="submit" name="button">Delete All Clients</button>
     </form>
 
 
