@@ -132,6 +132,36 @@ namespace HairSalon.Models
       }
     }
 
+    // Assigns a different stylist to a client
+    public void Edit(int newStylistId)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"UPDATE clients SET stylist_id = '"+newStylistId+"' WHERE id = '"+_id+"';";
+      cmd.ExecuteNonQuery();
+      _stylistId = newStylistId;
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+
+    public void Delete()
+    {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"DELETE FROM clients WHERE id = '"+_id+"';";
+        cmd.ExecuteNonQuery();
+        if (conn != null)
+        {
+          conn.Close();
+      }
+    }
+
+
     public override bool Equals(System.Object otherClient)
     {
       if (!(otherClient is Client))
