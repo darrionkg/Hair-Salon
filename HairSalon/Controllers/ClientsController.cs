@@ -9,25 +9,30 @@ namespace HairSalon.Controllers
     public class ClientsController : Controller
     {
       [HttpGet("/stylists/{id}/clients")]
-      public ActionResult Index(Stylist stylist)
+      public ActionResult Index(Stylist stylist, int id)
       {
-        List<Client> clientList = stylist.GetListOfClients();
-        return View(clientList);
+        //Console.WriteLine(Client.GetListOfClients(stylist).Count);
+        //List<Client> clientList = Client.GetListOfClients();
+        Stylist foundStylist = Stylist.Find(id);
+        return View(foundStylist);
       }
 
       [HttpGet("/stylists/{stylistId}/clients/new")]
       public ActionResult New(int stylistId)
       {
         Stylist foundStylist = Stylist.Find(stylistId);
-        Console.WriteLine(foundStylist);
         return View(foundStylist);
       }
 
-      // [HttpPost("/stylist/{stylistId}/clients/new")]
-      // public ActionResult Create(string clientName, int stylistId)
-      // {
-      //   return RedirectToAction("/stylists/stylistId");
-      // }
+      [HttpPost("/stylists/{id}/clients")]
+      public ActionResult Create(string clientName, int id)
+      {
+        //Console.WriteLine(id);
+        Stylist foundStylist = Stylist.Find(id);
+        Client newClient = new Client(clientName, id);
+        newClient.Save();
+        return RedirectToAction("Index", foundStylist);
+      }
 
     //   // LIST OF CLIENTS
     //   [HttpGet("/stylists/{id}")]

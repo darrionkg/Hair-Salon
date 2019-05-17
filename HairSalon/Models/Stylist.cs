@@ -132,15 +132,21 @@ namespace HairSalon.Models
       thisId.Value = id;
       cmd.Parameters.Add(thisId);
       var rdr = cmd.ExecuteReader() as MySqlDataReader;
-      rdr.Read();
+      // int stylistId;
+      // string stylistName;
+      // string stylistDescription;
+      // DateTime timestamp;
+      Stylist foundStylist = new Stylist();
       while(rdr.Read())
       {
         int stylistId = rdr.GetInt32(0);
         string stylistName = rdr.GetString(1);
         string stylistDescription = rdr.GetString(2);
         DateTime timestamp = rdr.GetDateTime(3);
-        Stylist foundStylist = new Stylist(stylistName, stylistDescription, stylistId, timestamp);
-        return foundStylist;
+        foundStylist.SetId(stylistId);
+        foundStylist.SetName(stylistName);
+        foundStylist.SetDescription(stylistDescription);
+        foundStylist.SetTimestamp(timestamp);
       }
       conn.Close();
       if (conn != null)
@@ -148,31 +154,52 @@ namespace HairSalon.Models
         conn.Dispose();
       }
       Stylist test = new Stylist();
-      return test;
+      return foundStylist;
     }
 
-    public List<Client> GetListOfClients()
+    public override bool Equals(System.Object otherStylist)
     {
-      List<Client> allClients = new List<Client> {};
-      MySqlConnection conn = DB.Connection();
-      conn.Open();
-      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM clients WHERE stylistId = '_id';";
-      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-      while(rdr.Read())
+      if (!(otherStylist is Stylist))
       {
-        Client newClient = new Client();
-        newClient.SetId(rdr.GetInt32(0));
-        newClient.SetName(rdr.GetString(1));
-        newClient.SetStylistId(rdr.GetInt32(2));
-        allClients.Add(newClient);
+        return false;
       }
-      conn.Close();
-      if (conn != null)
+      else
       {
-        conn.Dispose();
+        Stylist newStylist = (Stylist) otherStylist;
+        bool nameEquality = this.GetName().Equals(newStylist.GetName());
+        bool idEquality = this.GetId().Equals(newStylist.GetId());
+        bool descriptionEquality = this.GetDescription().Equals(newStylist.GetDescription());
+        bool timestampEquality = this.GetTimestamp().Equals(newStylist.GetTimestamp());
+        if(nameEquality == true && idEquality == true && descriptionEquality == true && timestampEquality == true)
+        {
+          return nameEquality;
+        }
+      return false;
       }
-      return allClients;
     }
+
+    // public List<Client> GetListOfClients()
+    // {
+    //   List<Client> allClients = new List<Client> {};
+    //   MySqlConnection conn = DB.Connection();
+    //   conn.Open();
+    //   MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+    //   cmd.CommandText = @"SELECT * FROM clients WHERE stylistId = '_id';";
+    //   MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+    //   while(rdr.Read())
+    //   {
+    //     Client newClient = new Client();
+    //     newClient.SetId(rdr.GetInt32(0));
+    //     newClient.SetName(rdr.GetString(1));
+    //     newClient.SetStylistId(rdr.GetInt32(2));
+    //     allClients.Add(newClient);
+    //   }
+    //   conn.Close();
+    //   if (conn != null)
+    //   {
+    //     conn.Dispose();
+    //   }
+    //   return allClients;
+    // }
   }
 }

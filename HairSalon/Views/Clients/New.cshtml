@@ -1,3 +1,5 @@
+@using HairSalon.Models;
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +13,7 @@
       <h1>Add a Client</h1>
     </div>
     <form action='/stylists/@Model.GetId()/clients' method='post'>
-      <!-- <input id='categoryId' name='categoryId' type='hidden' value='@Model.GetId()'> -->
+      <!-- <input id='stylistId' name='stylistId' type='hidden' value='@Model.GetId()'> -->
       <label for='clientName'>Client Name:</label>
       <input id='clientName' name='clientName' type='text'>
       <button type='submit' class="btn btn-dark">Add Client</button>
