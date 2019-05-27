@@ -73,18 +73,18 @@ namespace HairSalon.Controllers
       public ActionResult Edit(int clientId, string newName)
       {
         Client foundClient = Client.Find(clientId);
-        Console.WriteLine(foundClient.GetName());
-        foundClient.EditName("name", newName);
+        foundClient.EditName(newName);
         return Redirect("/clients");
       }
 
-      // [HttpPost("/clients/updateStylistId")]
-      // public ActionResult UpdateStylistId(int clientId, string newStylistId)
-      // {
-      //   int intStylistId = int.Parse(newStylistId);
-      //   client.EditStylistId("stylist_id", intStylistId);
-      //   return Redirect("/clients");
-      // }
+      [HttpPost("/clients/updateStylistId")]
+      public ActionResult UpdateStylistId(int clientId, string newStylistId)
+      {
+        int intStylistId = int.Parse(newStylistId);
+        Client foundClient = Client.Find(clientId);
+        foundClient.EditStylistId(intStylistId);
+        return Redirect("/clients");
+      }
 
     }
 

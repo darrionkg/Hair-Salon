@@ -95,12 +95,12 @@ namespace HairSalon.Models
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
       while(rdr.Read())
       {
-        Stylist newStylist = new Stylist();
-        newStylist.SetId(rdr.GetInt32(0));
-        newStylist.SetName(rdr.GetString(1));
-        newStylist.SetDescription(rdr.GetString(2));
-        newStylist.SetTimestamp(rdr.GetDateTime(3));
-        allStylists.Add(newStylist);
+         Stylist newStylist = new Stylist();
+         newStylist.SetId(rdr.GetInt32(0));
+         newStylist.SetName(rdr.GetString(1));
+         newStylist.SetDescription(rdr.GetString(2));
+         newStylist.SetTimestamp(rdr.GetDateTime(3));
+         allStylists.Add(newStylist);
       }
       conn.Close();
       if (conn != null)
@@ -115,7 +115,7 @@ namespace HairSalon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO `stylists` (`name`, `description`, `hire_date`) VALUES ('"+_name+"', '"+_description+"', CURRENT_TIMESTAMP);";
+      cmd.CommandText = @"INSERT INTO `stylists` (`id`, `name`, `description`, `hire_date`) VALUES ('"+_id+"', '"+ _name+"', '"+_description+"', CURRENT_TIMESTAMP);";
       cmd.ExecuteNonQuery();
       _id = (int) cmd.LastInsertedId;
       conn.Close();
@@ -130,11 +130,7 @@ namespace HairSalon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM `stylists` WHERE id = @thisId;";
-      MySqlParameter thisId = new MySqlParameter();
-      thisId.ParameterName = "@thisId";
-      thisId.Value = id;
-      cmd.Parameters.Add(thisId);
+      cmd.CommandText = @"SELECT * FROM `stylists` WHERE id = '"+id+"';";
       var rdr = cmd.ExecuteReader() as MySqlDataReader;
       Stylist foundStylist = new Stylist();
       while(rdr.Read())

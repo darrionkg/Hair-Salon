@@ -15,10 +15,11 @@ namespace HairSalon.Models
 
     }
 
-    public Client(string name, int stylistId)
+    public Client(string name, int stylistId, int id = 0)
     {
       _name = name;
       _stylistId = stylistId;
+      _id = id;
     }
 
     public string GetName()
@@ -98,13 +99,13 @@ namespace HairSalon.Models
       }
       return allClients;
     }
-    
+
     public void Save()
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO `clients` (`name`, `stylist_id`) VALUES ('"+_name+"', '"+_stylistId+"');";
+      cmd.CommandText = @"INSERT INTO `clients` (`id`, `name`, `stylist_id`) VALUES ('"+_id+"', '"+_name+"', '"+_stylistId+"');";
       cmd.ExecuteNonQuery();
       _id = (int) cmd.LastInsertedId;
       conn.Close();
@@ -157,12 +158,12 @@ namespace HairSalon.Models
       }
     }
 
-    public void EditName(string columnToEdit, string newName)
+    public void EditName(string newName)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE clients SET '"+columnToEdit+"' = '"+newName+"' WHERE id = '"+_id+"';";
+      cmd.CommandText = @"UPDATE clients SET name = '"+newName+"' WHERE id = '"+_id+"';";
       cmd.ExecuteNonQuery();
       _name = newName;
       conn.Close();
@@ -172,12 +173,12 @@ namespace HairSalon.Models
       }
     }
 
-    public void EditStylistId(string columnToEdit, int newStylistId)
+    public void EditStylistId(int newStylistId)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE clients SET '"+columnToEdit+"' = '"+newStylistId+"' WHERE id = '"+_id+"';";
+      cmd.CommandText = @"UPDATE clients SET stylist_id = '"+newStylistId+"' WHERE id = '"+_id+"';";
       cmd.ExecuteNonQuery();
       _stylistId = newStylistId;
       conn.Close();

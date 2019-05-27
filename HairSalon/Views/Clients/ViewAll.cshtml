@@ -21,7 +21,7 @@
     {
       @foreach (var client in Client.GetAll())
       {
-        <li><a href="/clients/client.GetId()">@client.GetName()</a></li>
+        <li><a href="/clients/@client.GetId()">@client.GetName()</a></li>
       }
     }
     </ol>
