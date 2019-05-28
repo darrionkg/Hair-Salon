@@ -116,7 +116,7 @@ namespace HairSalon.Tests
       Stylist testStylist = new Stylist("test stylist", "test description");
       testStylist.Save();
 
-      testStylist.Edit("new name");
+      testStylist.EditName("new name");
 
       Assert.AreEqual(testStylist.GetName(), "new name");
     }
