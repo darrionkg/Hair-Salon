@@ -1,0 +1,22 @@
+@using HairSalon.Models;
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>Add Specialty</title>
+  <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Add a Specialty</h1>
+    </div>
+    <form action='/stylists/specialties' method='post'>
+      <label for='specialtyType'>Specialty:</label>
+      <input id='specialtyType' name='specialtyType' type='text'>
+      <button type='submit' class="btn btn-dark">Add Specialty</button>
+    </form>
+  </div>
+</body>
+</html>

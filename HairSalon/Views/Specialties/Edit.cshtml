@@ -1,0 +1,27 @@
+@using HairSalon.Models;
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Darrion's Hair Salon</title>
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Edit Specialties</h1>
+      </div>
+      <form action="/stylists/specialties/editSpecialty" method="post">
+        <select name="specialtyId">
+        @foreach(Specialty specialty in Specialty.GetListOfSpecialties())
+        {
+          <option value="@specialty.GetId()">@specialty.GetSpecialtyType()</option>
+        }
+        <label for="newName">New Specialty/label>
+        <input type="text" name="newName">
+        </select>
+        <button type="submit" name="button">Edit</button>
+      </form>
+  </body>
+</html>

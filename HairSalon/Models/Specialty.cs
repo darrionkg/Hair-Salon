@@ -54,9 +54,9 @@ namespace HairSalon.Models
       _specialtyType = specialtyType;
     }
 
-    public static List<Specialty> GetListOfSpecialtys()
+    public static List<Specialty> GetListOfSpecialties()
     {
-      List<Specialty> allSpecialtys = new List<Specialty> {};
+      List<Specialty> allSpecialties = new List<Specialty> {};
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
@@ -67,13 +67,14 @@ namespace HairSalon.Models
          Specialty newSpecialty = new Specialty();
          newSpecialty.SetId(rdr.GetInt32(0));
          newSpecialty.SetSpecialtyType(rdr.GetString(1));
+         allSpecialties.Add(newSpecialty);
       }
       conn.Close();
       if (conn != null)
       {
         conn.Dispose();
       }
-      return allSpecialtys;
+      return allSpecialties;
     }
 
     public void Save()
@@ -121,7 +122,7 @@ namespace HairSalon.Models
       var cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"UPDATE specialties SET specialty_type = '"+newSpecialty+"' WHERE id = '"+_id+"';";
       cmd.ExecuteNonQuery();
-      _name = newSpecialty;
+      _specialtyType = newSpecialty;
       conn.Close();
       if (conn != null)
       {
@@ -147,7 +148,7 @@ namespace HairSalon.Models
         MySqlConnection conn = DB.Connection();
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"DELETE * FROM specialties;";
+        cmd.CommandText = @"DELETE FROM specialties;";
         cmd.ExecuteNonQuery();
         if (conn != null)
         {
@@ -168,10 +169,12 @@ namespace HairSalon.Models
         List<Stylist> stylists = new List<Stylist>{};
         while(rdr.Read())
         {
-          int specialtyId = rdr.GetInt32(0);
-          string specialtyType = rdr.GetString(1);
-          Stylist newStylist = new Stylist(specialtyType, specialtyId);
-          specialtys.Add(newSpecialty);
+          int stylistId = rdr.GetInt32(0);
+          string stylistName = rdr.GetString(1);
+          string stylistDescription = rdr.GetString(2);
+          DateTime hireDate = rdr.GetDateTime(3);
+          Stylist newStylist = new Stylist(stylistName, stylistDescription, hireDate, stylistId);
+          stylists.Add(newStylist);
         }
         conn.Close();
         if (conn != null)
@@ -181,12 +184,12 @@ namespace HairSalon.Models
         return stylists;
     }
 
-.   public void AddStylist(Stylist stylist)
+    public void AddStylist(Stylist stylist)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO stylists_specialties (specialty_id, stylist_id) VALUES ('"+_id+"', '"+stylist+"');";
+      cmd.CommandText = @"INSERT INTO stylists_specialties (specialty_id, stylist_id) VALUES ('"+_id+"', '"+stylist.GetId()+"');";
       cmd.ExecuteNonQuery();
       conn.Close();
       if (conn != null)
