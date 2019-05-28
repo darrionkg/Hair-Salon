@@ -33,11 +33,11 @@ namespace HairSalon.Controllers
         return RedirectToAction("Index", foundStylist);
       }
 
-      [HttpGet("/clients/delete")]
-      public ActionResult Delete()
+      [HttpGet("/stylists/{stylistId}/clients/delete")]
+      public ActionResult Delete(int stylistId)
       {
-
-        return View();
+        Stylist foundStylist = Stylist.Find(stylistId);
+        return View(foundStylist);
       }
 
       [HttpPost("/clients/deleteClient")]
@@ -46,7 +46,7 @@ namespace HairSalon.Controllers
         int intClientId = int.Parse(clientId);
         Client foundClient = Client.Find(intClientId);
         foundClient.Delete();
-        return Redirect("~/clients");
+        return RedirectToAction("Index", "Home");
       }
 
       [HttpPost("/clients/deleteAll")]
@@ -56,16 +56,16 @@ namespace HairSalon.Controllers
         return Redirect("~/clients");
       }
 
-      [HttpGet("/clients")]
-      public ActionResult ViewAll()
+      // [HttpGet("/clients")]
+      // public ActionResult ViewAll()
+      // {
+      //   return View();
+      // }
+      //
+      [HttpGet("/stylists/{stylistId}/clients/{clientId}")]
+      public ActionResult Show(int clientId)
       {
-        return View();
-      }
-
-      [HttpGet("/clients/{id}")]
-      public ActionResult Show(int id)
-      {
-        Client foundClient = Client.Find(id);
+        Client foundClient = Client.Find(clientId);
         return View(foundClient);
       }
 
@@ -74,16 +74,16 @@ namespace HairSalon.Controllers
       {
         Client foundClient = Client.Find(clientId);
         foundClient.EditName(newName);
-        return Redirect("/clients");
+        return RedirectToAction("Index", "Home");
       }
 
       [HttpPost("/clients/updateStylistId")]
       public ActionResult UpdateStylistId(int clientId, string newStylistId)
       {
-        int intStylistId = int.Parse(newStylistId);
+        int intNewStylistId = int.Parse(newStylistId);
         Client foundClient = Client.Find(clientId);
-        foundClient.EditStylistId(intStylistId);
-        return Redirect("/clients");
+        foundClient.EditStylistId(intNewStylistId);
+        return RedirectToAction("Index", "Home");
       }
 
     }

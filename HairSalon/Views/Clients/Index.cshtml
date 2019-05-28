@@ -22,12 +22,12 @@
     {
       @foreach (var client in Client.GetListOfClients(@Model))
       {
-        <li><a href="/clients/client.GetId()">@client.GetName()</a></li>
+        <li><a href="/stylists/@Model.GetId()/clients/@client.GetId()">@client.GetName()</a></li>
       }
     }
     </ol>
     <a href="/stylists/@Model.GetId()/clients/new" class="btn btn-dark">Add a new client"</a><br><br>
-    <a href="/clients/delete">Remove clients</a>
+    <a href="/stylists/@Model.GetId()/clients/delete" class="btn btn-dark">Remove clients</a>
     <a href="/stylists" class="btn btn-dark">Return to stylists list</a>
     <a href="/" class="btn btn-dark">Return to homepage</a>
   </div>

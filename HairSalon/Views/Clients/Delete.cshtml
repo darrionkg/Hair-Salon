@@ -10,12 +10,12 @@
 <body>
   <div class="container">
     <div class="jumbotron">
-      <h1>Remove Clients</h1>
+      <h1>Remove Clients for @Model.GetName()</h1>
       <em>Be careful when using this page</em>
     </div>
     <form action="/clients/deleteClient" method="post">
       <select name="clientId">
-      @foreach(Client client in Client.GetAll())
+      @foreach(Client client in Client.GetListOfClients(@Model))
       {
         <option value="@client.GetId()">@client.GetName()</option>
 

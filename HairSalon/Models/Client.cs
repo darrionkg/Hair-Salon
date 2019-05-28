@@ -120,11 +120,7 @@ namespace HairSalon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM `clients` WHERE id = @thisId;";
-      MySqlParameter thisId = new MySqlParameter();
-      thisId.ParameterName = "@thisId";
-      thisId.Value = id;
-      cmd.Parameters.Add(thisId);
+      cmd.CommandText = @"SELECT * FROM `clients` WHERE id = '"+id+"';";
       var rdr = cmd.ExecuteReader() as MySqlDataReader;
       Client foundClient = new Client();
       while(rdr.Read())
